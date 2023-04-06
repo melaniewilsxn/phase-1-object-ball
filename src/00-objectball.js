@@ -1,7 +1,7 @@
 function gameObject() {
        return obj = { home: {
             teamName: "Brooklyn Nets",
-            colors: "Black, White",
+            colors: ["Black", "White"],
             players: {
                 "Alan Anderson": {
                     number: "0",
@@ -57,7 +57,7 @@ function gameObject() {
         },
         away: {
             teamName: "Charlotte Hornets",
-            colors: "Turguoise, Purple",
+            colors: ["Turguoise", "Purple"],
             players: {
                 "Jeff Adrien": {
                     number: "4",
@@ -136,14 +136,33 @@ function numPointsScored(playerName) {
     }
 }
 
-function shoeSize(target) {
+function shoeSize(playerName) {
     let object = gameObject();
-    return object["players"][target]["shoe"];
+    for (const team in object) {
+       const teamObj = object[team];
+       for (const teamInfo in teamObj){
+        const teamInfoObj = teamObj[teamInfo]
+        if (typeof teamInfoObj === "object"){ //only true for players obj
+            for (const teamPlayerName in teamInfoObj){
+                if (teamPlayerName === playerName){
+                    return teamInfoObj[teamPlayerName]["shoe"]
+                }
+            }
+        }
+       }
+    }
 }
 
-function teamColors(target) {
+function teamColors(targetTeamName) {
     let object = gameObject();
-    return object["home"][target]["points"];
+    for (const team in object) {
+       const teamObj = object[team];
+       for (const teamInfo in teamObj){
+        if (teamObj[teamInfo] === targetTeamName){
+            return teamObj["colors"];
+        }
+       }
+    }
 }
 
 function teamNames() {
