@@ -212,8 +212,8 @@ function playerStats(playerName) {
 }
 
 function bigShoeRebounds() {
-    let biggestShoeSize = 0;
-    let nameOfBiggestShoeSize;
+    let biggestShoes = 0;
+    let biggestShoeRebounds = 0;
     let object = gameObject();
     for (const team in object) {
        const teamObj = object[team];
@@ -224,13 +224,39 @@ function bigShoeRebounds() {
                 const teamPlayerNamesObj = teamInfoObj[teamPlayerName]
                 for (const playerStats in teamPlayerNamesObj){
                     if (playerStats === "shoe"){
-                        if (teamPlayerNamesObj[playerStats]>biggestShoeSize){
-                            biggestShoeSize = teamPlayerNamesObj[playerStats]
+                        if (teamPlayerNamesObj[playerStats]>biggestShoes){
+                            biggestShoes = teamPlayerNamesObj["shoe"]
+                            biggestShoeRebounds = teamPlayerNamesObj["rebounds"]
                         }
                     }
-                    if (teamPlayerNamesObj["shoe"] === biggestShoeSize){
-                        return teamPlayerNamesObj["rebounds"]
+                }
+            }
+        }
+       }
+    }
+    return biggestShoeRebounds;
+}
+
+function mostPointsScored() {
+    let mostPoints = 0;
+    let object = gameObject();
+    for (const team in object) {
+       const teamObj = object[team];
+       for (const teamInfo in teamObj){
+        const teamInfoObj = teamObj[teamInfo]
+        if (teamInfo === "players"){
+            for (const teamPlayerName in teamInfoObj){
+                const teamPlayerNamesObj = teamInfoObj[teamPlayerName]
+                for (const playerStats in teamPlayerNamesObj){
+                    if (playerStats === "points"){
+                        if (teamPlayerNamesObj["points"]>mostPoints){
+                            mostPoints = teamPlayerNamesObj["points"]
+                            console.log(mostPoints);
+                        }
                     }
+                    //if (teamPlayerNamesObj["points"] === biggestShoeSize){
+                    //    return teamPlayerNamesObj["rebounds"]
+                    //}
                 }
             }
         }
